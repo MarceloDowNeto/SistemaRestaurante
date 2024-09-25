@@ -1,6 +1,13 @@
 {% extends 'main.html' %}
 
 {%  block content %}
-    <a href="/painel/">fazer login</a><br>
-    <a href="/create/">cadastro  de  usuários <a><br>
+<div class="col-8 m-auto pt-2 pb-2">
+    <h1 class="titulo">Bem-vindo ao Eclise Burguer!</h1>
+    <p>Para consegir comprar no nosso site, você deve fazer o login.</p>
+</div>
+<div class="text-center">
+    <a href="/painel/" id="botao" class="btn btn-dark mt-4 mt-4">Fazer login</a><br>
+    <a href="/create/" class="btn  btn-dark mt-4">Criar uma conta<a><br>
+</div>
+    
 {% endblock %}

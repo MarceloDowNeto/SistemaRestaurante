@@ -1,3 +1,31 @@
-boby {
-    background: red;
+.fundo {
+    background: #f0f0f0 url('../background_login_cad.jpg') no-repeat fixed center;
+    background-size: cover;
+}
+
+.container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center; 
+    height: 100vh;
+  } 
+
+.button-container {
+    background-color: white;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    border-radius: 10px;
+    margin-left: 20px;
+    width: 523px;
+    height: 523px;
+}
+
+#botao{
+    background-color: #BC1D1D;
+    color:white;
+    border: none;
+}
+
+.titulo{
+    color: #BC1D1D;
 }

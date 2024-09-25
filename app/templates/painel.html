@@ -1,6 +1,7 @@
 {% extends 'main.html' %}
 
 {%  block content %}
+    <h1 class="titulo text-center">Faça seu login</h1>
     <form name="formPainel" id="formPainel" method="post"action="/dologin/"
         <div class="col-6 mt-4 m-auto">
             {% if msg %}
@@ -13,8 +14,8 @@
 
          <input class="form-control mt-4" type="text" name="user" id="user" placeholder="Nome do Usuário:">
          <input class="form-control mt-4" type="password" name="password" id="password" placeholder="Senha:">
-         <input class="btn-dark mt-4 mt-4" type="submit"  value="Enter"> 
-         <a class="btn-dark mt-4 mt-4" href="/" >Voltar</a>
+         <input id="botao" class="btn btn-dark mt-4 mt-4" type="submit"  value="Fazer login"> 
+         <a class="btn btn-dark mt-4 mt-4" href="/" >Voltar</a>
         </div>
     </form>
     {% endblock %}
