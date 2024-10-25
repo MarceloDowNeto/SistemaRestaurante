@@ -47,7 +47,7 @@ def logouts(request):
 
 def changePassword(request):
     user = User.objects.get(email=request.user.email)
-    user.set_password('new password')
+    user.set_password(request.POST['password'])
     user.save()
     logout(request)
-    return render(request, '/painel/')
+    return render(request, 'painel.html')

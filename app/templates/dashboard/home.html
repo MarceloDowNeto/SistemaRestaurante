@@ -4,13 +4,22 @@
     {% if request.user.is_authenticated %}
        <h1 class="titulo">Work in progress...</h1>
         Estamos trabalhando para construir o resto do site. Você conseguiu fazer login! <br>
-        <a href="/logouts/ ">Sair</a>
+        <form name="form-users" id="form-password" method="post"action="/password/">
+            <div class="col-6 mt-4 m-auto">
+                {% csrf_token %}
+                <input class="form-control mt-4" type="password" name="password" id="password" placeholder="Nova senha:">
+                <input id="botao" class="btn btn-primary mt-4 mt-4" type="submit"  value="Trocar a senha">
+
+            </div>
+        </form>
+        <a href="/logouts/ ">Fazer logout</a>
         <hr>
 
         {% if perms.foo.add_vote %}
             <p>Como você tem permissão de editar usuários você pode ver i!</p>
     {% endif %}
     {% else %}
-         Você não tem acesso a essa Conta!
+         Você não tem acesso a essa Conta! <br>
+         <a class="btn btn-dark mt-4 mt-4" href="/">Voltar</a>
     {% endif %}
 {% endblock %}
