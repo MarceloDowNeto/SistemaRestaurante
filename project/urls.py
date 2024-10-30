@@ -18,7 +18,7 @@ from venv import create
 from django.conf.urls.i18n import urlpatterns
 from django.contrib import admin
 from django.urls import path
-from app.views import  home,create,store,painel,dologin,dashboard,logouts,changePassword
+from app.views import  home,create,store,painel,dologin,dashboard,logouts,changePassword,newdashboard
 
 urlpatterns =[
     path('admin/', admin.site.urls),
@@ -30,4 +30,5 @@ urlpatterns =[
     path('dashboard/',dashboard),
     path('logouts/',logouts),
     path('password/',changePassword),
+    path('newdashboard/',newdashboard),
 ]

@@ -10,12 +10,16 @@
     height: 100vh;
   } 
 
+.container2 {
+    display: flex;
+
+}
+
+.final {
+    justify-self: flex-end;
+}
+
 .button-container {
-    background-color: white;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-    padding: 20px;
-    border-radius: 10px;
-    margin-left: 20px;
     width: 523px;
     height: 523px;
 }
@@ -28,4 +32,85 @@
 
 .titulo{
     color: #BC1D1D;
+}
+
+.background {
+    background: #f0f0f0 url('../background_dashboard.jpg') no-repeat fixed center;
+    background-size: cover;
+}
+
+.top-container {
+    width: 97vw;
+    height: 109px;
+    display: flex;
+    gap: 50px;
+}
+
+.button-container,.top-container,.sidebar {
+    background-color: white;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    border-radius: 10px;
+    margin-left: 20px;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 500px;
+}
+
+.nav-links li {
+    margin: 0 15px;
+}
+
+.nav-links a {
+    color: #787878;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+.nav-links a:hover {
+    color: #BC1D1D;
+}
+
+.sidebar {
+    position: fixed;
+    left: 4px;
+    top: 120px;
+    width: 244px;
+    height: calc(97% - 109px);
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.sidebar-nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar-nav li {
+    margin-bottom: 15px;
+}
+
+.sidebar-nav a {
+    color: #787878;
+    text-decoration: none;
+    padding: 10px 20px;
+    display: block;
+    font-size: 18px;
+}
+
+.sidebar-nav a:hover {
+    color: #BC1D1D;
+}
+
+.sacola {
+    height: 72px;
+    width: 72px;
+    margin-top: auto;
 }
