@@ -51,3 +51,6 @@ def changePassword(request):
     user.save()
     logout(request)
     return render(request, 'painel.html')
+
+def newdashboard(request):
+    return  render(request,'dashboard/dashboard.html')
