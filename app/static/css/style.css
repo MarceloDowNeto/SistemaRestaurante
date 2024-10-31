@@ -44,9 +44,11 @@
     height: 109px;
     display: flex;
     gap: 50px;
+    position: fixed;
+    z-index: 1000;
 }
 
-.button-container,.top-container,.sidebar {
+.button-container,.top-container,.sidebar,.content-bar {
     background-color: white;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
     padding: 20px;
@@ -112,5 +114,29 @@
 .sacola {
     height: 72px;
     width: 72px;
+    justify-self: flex-end;
     margin-top: auto;
+}
+
+.content {
+    padding-top: 109px;
+    margin-left: 244px;
+    padding: 20px;
+    height: 82vh;
+    width: calc(50vh-280px);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+}
+
+.content-bar {
+    width: 80vw;
+    height: 206px;
+    display: flex;
+    flex-shrink: 0;
+}
+
+.content-bar:hover {
+    border: 2px, solid, #BC1D1D;
 }
