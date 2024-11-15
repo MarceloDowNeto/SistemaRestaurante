@@ -17,7 +17,9 @@ from venv import create
 
 from django.conf.urls.i18n import urlpatterns
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
 from app.views import  home,create,store,painel,dologin,dashboard,logouts,changePassword,newdashboard
 
 urlpatterns =[
@@ -31,4 +33,4 @@ urlpatterns =[
     path('logouts/',logouts),
     path('password/',changePassword),
     path('newdashboard/',newdashboard),
-]
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

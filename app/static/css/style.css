@@ -1,3 +1,6 @@
+html {
+    scroll-behavior: smooth;
+}
 .fundo {
     background: #f0f0f0 url('../background_login_cad.jpg') no-repeat fixed center;
     background-size: cover;
@@ -126,7 +129,7 @@
     width: calc(50vh-280px);
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 20px;
     align-items: center;
 }
 
@@ -135,8 +138,21 @@
     height: 206px;
     display: flex;
     flex-shrink: 0;
+    gap: 30px;
 }
 
 .content-bar:hover {
     border: 2px, solid, #BC1D1D;
+}
+
+.imagem-produto {
+    height: 170px;
+    width: 170px;
+}
+
+.section {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
 }

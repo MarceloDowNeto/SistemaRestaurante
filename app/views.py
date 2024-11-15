@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from django.contrib.auth.models import User
 from django.contrib.auth import  authenticate,login,logout
+from app.models import Categoria, Produto
 
 def home(request):
     return  render(request,'home.html')
@@ -53,4 +54,7 @@ def changePassword(request):
     return render(request, 'painel.html')
 
 def newdashboard(request):
-    return  render(request,'dashboard/dashboard.html')
+    data = {}
+    data['db'] = Produto.objects.all()
+    data['ct'] = Categoria.objects.all()
+    return  render(request,'dashboard/dashboard.html', data)
