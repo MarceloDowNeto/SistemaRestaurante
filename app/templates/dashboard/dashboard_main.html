@@ -13,15 +13,15 @@
 <body class="background">
     <header style="top: 0; left: 0;">
         <nav class="top-container">
-            <a href="#">
+            <a href="/newdashboard">
                 <img src="..\..\static\logo_eclipse.png" height="90px" width="90px" style="padding-bottom: 20px;">
             </a>            
             <ul class="nav-links">
-                <li><a href="#"> Cardápio </a></li>
+                <li><a href="/newdashboard"> Cardápio </a></li>
                 <li><a href="#"> Pedidos </a></li>
-                <li><a href="#"> Contatos </a></li>
+                <li><a href="/contatos"> Contatos </a></li>
             </ul>
-            <a href="#" style="margin-left: auto;">
+            <a href="/profile" style="margin-left: auto;">
                 <img src="..\..\static\perfil1.png" href="#">
             </a>
             
@@ -29,16 +29,8 @@
     </header>
 
     <aside class="sidebar">
-        <nav class="sidebar-nav">
-            <ul>
-                {% for cts in ct %}
-                <li><a href="#{{cts.nome}}">{{cts.nome}}</a></li>
-                {% endfor %}
-            </ul>
-            <a href="#">
-                <img src="..\..\static\sacola.png" class="sacola">
-            </a>   
-        </nav>
+        {% block sidebar %}
+        {% endblock %}
     </aside>
 
     <main class="content" style="padding-top: 120px;">

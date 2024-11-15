@@ -1,0 +1,28 @@
+{% extends 'dashboard/dashboard_main.html' %}
+{% block sidebar %}
+{% if request.user.is_authenticated %}
+    <nav class="sidebar-nav">
+        <a href="#">
+            <img src="..\..\static\sacola.png" class="sacola">
+        </a>   
+    </nav>
+{% endif %}
+{% endblock %}
+{% block content %}
+{% if request.user.is_authenticated %}
+<div class="profile">
+    <h1>Eclipse Burger</h1>
+    <h2>Contatos:</h2>
+    <ul>
+        <li>Endereço: Avenida Almirante Álvaro Calheiros, 879 - Jatiúca</li>
+        <li>Cidade: Maceió - AL</li>
+        <li>CEP: 57035-558</li>
+        <li>Telefone: (82) 9xxxx-xxxx</li>
+
+    </ul>
+</div>
+{% else %}
+Você não tem acesso a essa página! Faça login: <br>
+<a class="btn btn-dark mt-4 mt-4" href="/">Voltar</a>
+{% endif %}
+{% endblock %}

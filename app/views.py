@@ -33,7 +33,7 @@ def dologin(request):
     user = authenticate(username=request.POST['user'],password=request.POST['password'])
     if user is not None:
        login(request, user)
-       return redirect('/dashboard/')
+       return redirect('/newdashboard/')
     else:
         data['msg'] = 'Usuário ou Senha inválidos!'
         data['class'] = ' alert-danger'
@@ -58,3 +58,9 @@ def newdashboard(request):
     data['db'] = Produto.objects.all()
     data['ct'] = Categoria.objects.all()
     return  render(request,'dashboard/dashboard.html', data)
+
+def profile(request):    
+    return  render(request,'dashboard/profile.html')
+
+def contatos(request):    
+    return  render(request,'dashboard/contatos.html')

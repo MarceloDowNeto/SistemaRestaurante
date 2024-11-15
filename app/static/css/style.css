@@ -51,7 +51,7 @@ html {
     z-index: 1000;
 }
 
-.button-container,.top-container,.sidebar,.content-bar {
+.button-container,.top-container,.sidebar,.content-bar,.profile {
     background-color: white;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
     padding: 20px;
@@ -155,4 +155,8 @@ html {
     flex-direction: column;
     gap: 10px;
     align-items: center;
+}
+
+.profile{
+    width: 80vw;
 }

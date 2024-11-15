@@ -1,0 +1,34 @@
+{% extends 'dashboard/dashboard_main.html' %}
+{% block sidebar %}
+{% if request.user.is_authenticated %}
+            <nav class="sidebar-nav">
+                <a href="#">
+                    <img src="..\..\static\sacola.png" class="sacola">
+                </a>   
+            </nav>
+        {% endif %}
+{% endblock %}
+{% block content %}
+{% if request.user.is_authenticated %}
+<div class="profile">
+    <h1>Perfil do usuário</h1>
+    <ul>
+        <li>Nome: {{request.user.first_name}}</li>
+        <li>Nome de Usuário: {{request.user.username}}</li>
+        <li>Email: {{request.user.email}}</li>
+    </ul>
+    <form name="form-users" id="form-password" method="post"action="/password/">
+        <div class="col-6 mt-4 m-auto">
+            {% csrf_token %}
+            <input class="form-control mt-4" type="password" name="password" id="password" placeholder="Nova senha:">
+            <input id="botao" class="btn btn-primary mt-4 mt-4" type="submit"  value="Trocar a senha">
+
+        </div>
+    </form>
+    <a href="/logouts/ ">Fazer logout</a>
+</div>
+{% else %}
+Você não tem acesso a essa página! Faça login: <br>
+<a class="btn btn-dark mt-4 mt-4" href="/">Voltar</a>
+{% endif %}
+{% endblock %}

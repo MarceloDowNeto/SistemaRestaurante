@@ -1,26 +1,45 @@
 {% extends 'dashboard/dashboard_main.html' %}
-
-{% block content %}
-        {% for cts in ct %}
-        <section class="section" id="{{cts.nome}}">
-            {% for dbs in db %}
-            {% if dbs.categoria.nome == cts.nome %}
-            <div id="contentBar" class="content-bar">
-                {% if dbs.imagem %}
-                <img src="{{dbs.imagem.url}}" class="imagem-produto">
-                {% endif %}
-                <div>
-                    <h1>{{dbs.nome}}</h1> 
-                    <p>{{dbs.descricao}}</p> 
-                    <h2>R${{dbs.preco}}</h2>
-                    <div id="atributos" style="display: flex; gap: 20px;">
-                        Quantidade: <input type="number" value="1" min="1" style="width: 40px;">
-                        <input id="botao" class="btn btn-dark" type="submit" value="Adicionar à sacola">
+    {% block sidebar %}
+        {% if request.user.is_authenticated %}
+            <nav class="sidebar-nav">
+                <ul>
+                    {% for cts in ct %}
+                    <li><a href="#{{cts.nome}}">{{cts.nome}}</a></li>
+                    {% endfor %}
+                </ul>
+                <a href="#">
+                    <img src="..\..\static\sacola.png" class="sacola">
+                </a>   
+            </nav>
+        {% endif %}
+    {% endblock %}
+    {% block content %}
+        {% if request.user.is_authenticated %}
+                {% for cts in ct %}
+                <section class="section" id="{{cts.nome}}">
+                    {% for dbs in db %}
+                    {% if dbs.categoria.nome == cts.nome %}
+                    <div id="contentBar" class="content-bar">
+                        {% if dbs.imagem %}
+                        <img src="{{dbs.imagem.url}}" class="imagem-produto">
+                        {% endif %}
+                        <div>
+                            <h1>{{dbs.nome}}</h1> 
+                            <p>{{dbs.descricao}}</p> 
+                            <h2>R${{dbs.preco}}</h2>
+                            <div id="atributos" style="display: flex; gap: 20px;">
+                                Quantidade: <input type="number" value="1" min="1" style="width: 40px;">
+                                <input id="botao" class="btn btn-dark" type="submit" value="Adicionar à sacola">
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-            {% endif %}
-            {% endfor %}
-        </section>
-        {% endfor %}
-{% endblock %}
+                    {% endif %}
+                {% endfor %}
+                </section>
+                {% endfor %}
+        {% else %}
+        Você não tem acesso a essa página! Faça login: <br>
+        <a class="btn btn-dark mt-4 mt-4" href="/">Voltar</a>
+        {% endif %}
+        {% endblock %}
+    
