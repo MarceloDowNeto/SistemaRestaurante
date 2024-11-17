@@ -39,6 +39,7 @@ class SacolaManager(models.Manager):
         if user is not None:
             if user.is_authenticated:
                 user_obj = user
+                self.model.objects.filter(user=user_obj).delete()
         return self.model.objects.create(user=user_obj)
     
 
