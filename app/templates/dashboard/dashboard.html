@@ -28,8 +28,7 @@
                             <p>{{dbs.descricao}}</p> 
                             <h2>R${{dbs.preco}}</h2>
                             <div id="atributos" style="display: flex; gap: 20px;">
-                                Quantidade: <input type="number" value="1" min="1" style="width: 40px;">
-                                <input id="botao" class="btn btn-dark" type="submit" value="Adicionar à sacola">
+                                <button id="botao" class="adiciona-sacola" data-produto-id="{{ dbs.id }}">Adicionar à sacola</button>
                             </div>
                         </div>
                     </div>

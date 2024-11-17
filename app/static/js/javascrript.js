@@ -1,41 +1,28 @@
-const contentBars = document.querySelectorAll('#contentBar')
-
-// contentBars.forEach(contentBar => {
-//     const divAtributos = document.querySelectorAll('#atributos')
-//     contentBar.addEventListener('click', selecionarProduto)
-//     let grande = false
-
-//     // divAtributos.forEach(divAtributo => {
-//     //     const contadorContainer = document.createElement('div')
-//     //     contadorContainer.classList.add('contador')
-            
-//     //     const label = document.createElement('label')
-//     //     label.textContent = 'Quantidade:'
-
-//     //     const inputContador = document.createElement('input')
-//     //     inputContador.type = 'number'
-//     //     inputContador.value = 1
-//     //     inputContador.min = 1
-
-//     //     contadorContainer.appendChild(label)
-//     //     contadorContainer.appendChild(inputContador)
-
-//     function selecionarProduto() {
-//         if (grande) {
-//              contentBar.style.height = '209px'
-//             divAtributo.style.display = 'none'
-//             divAtributo.innerHTML = ''
-            
-
-//         } else {
-//             contentBar.style.height = '300px'
-//             divAtributo.style.display = 'block'
-//             divAtributo.appendChild(contadorContainer)
-//         }
-//         grande = !grande
-//         console.log(grande)
-//         }
-//     })
+$(document).ready(function() {
+    console.log("DOM carregado.");
+    $(document).on('click', '.adiciona-sacola', function() {
+        console.log("Botão clicado!");
+        const produtoId = $(this).data('produto-id');  // Obtém o ID do produto
+        console.log("ID do produto:", produtoId);
+        const url = urlAddSacola;  // URL da view
     
-// //})
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: {
+                'produto_id': produtoId,
+                'csrfmiddlewaretoken': $("meta[name='csrf-token']").attr("content")  // Token CSRF
+            },
+            success: function(response) {
+                alert(response.mensagem);  // Mostra uma mensagem de sucesso
+                // Atualiza o subtotal e total no template (se necessário)
+                $('#subtotal').text(`Subtotal: R$ ${response.subtotal.toFixed(2)}`);
+                $('#total').text(`Total: R$ ${response.total.toFixed(2)}`);
+            },
+            error: function(error) {
+                alert('Erro ao adicionar o produto à sacola.');
+            }
+        });
+    });
+});
 

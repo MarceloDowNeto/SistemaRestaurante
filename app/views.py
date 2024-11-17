@@ -1,5 +1,5 @@
-from django.shortcuts import render,redirect
-from django.http import HttpResponse
+from django.shortcuts import render,redirect, get_object_or_404
+from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.models import User
 from django.contrib.auth import  authenticate,login,logout
 from app.models import Categoria, Produto, Sacola
@@ -85,3 +85,21 @@ def sacola(request):
     data['st'] = sacola_obj.subtotal
     data['total'] = sacola_obj.total
     return render(request, 'dashboard/sacola.html', data)
+
+def add_sacola(request):
+    if request.method == "POST":
+        produto_id = request.POST.get('produto_id')  # ID do produto enviado pelo AJAX
+        sacola_obj, _ = Sacola.objects.new_or_get(request)  # Obtém ou cria uma sacola
+        produto = get_object_or_404(Produto, id=produto_id)
+
+        sacola_obj.produtos.add(produto)  # Adiciona o produto à sacola
+        sacola_obj.save()
+
+        # Retorna dados da sacola atualizada
+        return JsonResponse({
+            'mensagem': 'Produto adicionado com sucesso!',
+            'subtotal': float(sacola_obj.subtotal),
+            'total': float(sacola_obj.total),
+        })
+
+    return JsonResponse({'mensagem': 'Requisição inválida'}, status=400)

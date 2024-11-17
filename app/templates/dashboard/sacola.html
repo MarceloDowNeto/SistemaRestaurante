@@ -10,16 +10,16 @@
 {% endblock %}
 {% block content %}
 {% if request.user.is_authenticated %}
-<div class="profile">
+<div id="sacola-info" class="profile">
     <h1>Sua sacola: </h1> <br>
     <ul>
         {% for pds in pd %}
         <li>{{pds.nome}} -> R${{pds.preco}}</li>
         {% endfor %}
     </ul>
-    <h3>Subtotal: R${{st}}</h3>
+    <h3 id="subtotal">Subtotal: R${{st}}</h3>
     <h6>Taxa de entrega: R$5.00</h6>
-    <h2>Valor total: R${{ total }}</h2>
+    <h2 id="total">Valor total: R${{ total }}</h2>
 {% else %}
 Você não tem acesso a essa página! Faça login: <br>
 <a class="btn btn-dark mt-4 mt-4" href="/">Voltar</a>
