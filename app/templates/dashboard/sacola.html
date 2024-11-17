@@ -14,7 +14,9 @@
     <h1>Sua sacola: </h1> <br>
     <ul>
         {% for pds in pd %}
-        <li>{{pds.nome}} -> R${{pds.preco}}</li>
+        <li>{{pds.nome}} -> R${{pds.preco}}
+            <button class="remover-item" data-produto-id="{{ pds.id }}" style="border: none;"><img src="..\..\static\lixeira.png" alt="" style="height: 15px; width: 15px;"></button>
+        </li>
         {% endfor %}
     </ul>
     <h3 id="subtotal">Subtotal: R${{st}}</h3>

@@ -103,3 +103,20 @@ def add_sacola(request):
         })
 
     return JsonResponse({'mensagem': 'Requisição inválida'}, status=400)
+
+def remove_sacola(request):
+    if request.method == "POST":
+        produto_id = request.POST.get("produto_id")
+        sacola_id = request.session.get('sacola_id')
+        if sacola_id:
+            try:
+                sacola = Sacola.objects.get(id=sacola_id)
+                produto = Produto.objects.get(id=produto_id)
+                sacola.produtos.remove(produto)
+                sacola.save()
+                return JsonResponse({"message": "Produto removido com sucesso!"})
+            except Sacola.DoesNotExist:
+                return JsonResponse({"error": "Sacola não encontrada!"}, status=404)
+            except Produto.DoesNotExist:
+                return JsonResponse({"error": "Produto não encontrado!"}, status=404)
+    return JsonResponse({"error": "Requisição inválida!"}, status=400)

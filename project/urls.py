@@ -20,7 +20,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-from app.views import  home,create,store,painel,dologin,dashboard,logouts,changePassword,newdashboard,profile,contatos,sacola,add_sacola
+from app.views import  home,create,store,painel,dologin,dashboard,logouts,changePassword,newdashboard,profile,contatos,sacola,add_sacola,remove_sacola
 
 urlpatterns =[
     path('admin/', admin.site.urls),
@@ -37,4 +37,5 @@ urlpatterns =[
     path('contatos/',contatos),
     path('sacola/',sacola),
     path('add_sacola/',add_sacola, name='add_sacola'),
+    path('remove_sacola/', remove_sacola, name='remove_sacola'),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

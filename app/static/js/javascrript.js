@@ -24,5 +24,25 @@ $(document).ready(function() {
             }
         });
     });
+
+    $(document).on('click', '.remover-item', function() {
+        const produtoId = $(this).data('produto-id');
+        const url = urlRemoveSacola;
+        $.ajax({
+            url: url, // Certifique-se de ter configurado esta URL no Django
+            type: "POST",
+            data: {
+                produto_id: produtoId,
+                csrfmiddlewaretoken: $("meta[name='csrf-token']").attr("content")
+            },
+            success: function(response) {
+                console.log("Produto removido com sucesso!");
+                location.reload(); // Atualiza a página para refletir as alterações
+            },
+            error: function(xhr, status, error) {
+                console.error("Erro ao remover produto:", error);
+            }
+        });
+    });
 });
 
