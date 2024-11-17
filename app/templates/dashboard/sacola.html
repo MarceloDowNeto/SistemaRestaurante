@@ -1,0 +1,27 @@
+{% extends 'dashboard/dashboard_main.html' %}
+{% block sidebar %}
+{% if request.user.is_authenticated %}
+            <nav class="sidebar-nav">
+                <a href="/sacola">
+                    <img src="..\..\static\sacola.png" class="sacola">
+                </a>   
+            </nav>
+        {% endif %}
+{% endblock %}
+{% block content %}
+{% if request.user.is_authenticated %}
+<div class="profile">
+    <h1>Sua sacola: </h1> <br>
+    <ul>
+        {% for pds in pd %}
+        <li>{{pds.nome}} -> R${{pds.preco}}</li>
+        {% endfor %}
+    </ul>
+    <h3>Subtotal: R${{st}}</h3>
+    <h6>Taxa de entrega: R$5.00</h6>
+    <h2>Valor total: R${{ total }}</h2>
+{% else %}
+Você não tem acesso a essa página! Faça login: <br>
+<a class="btn btn-dark mt-4 mt-4" href="/">Voltar</a>
+{% endif %}
+{% endblock %}

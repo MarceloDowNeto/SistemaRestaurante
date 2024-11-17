@@ -2,13 +2,19 @@ from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from django.contrib.auth.models import User
 from django.contrib.auth import  authenticate,login,logout
-from app.models import Categoria, Produto
+from app.models import Categoria, Produto, Sacola
 
 def home(request):
-    return  render(request,'home.html')
+    if request.user.is_authenticated:
+        return redirect('/newdashboard/')
+    else:
+        return  render(request,'home.html')
 
 def create(request):
-    return  render(request,'create.html')
+    if request.user.is_authenticated:
+        return redirect('/newdashboard/')
+    else:
+        return  render(request,'create.html')
 
 def store(request):
     data = {}
@@ -26,7 +32,10 @@ def store(request):
     return  render(request,'create.html',data)
 
 def painel(request):
-    return  render(request,'painel.html')
+    if request.user.is_authenticated:
+        return redirect('/newdashboard/')
+    else:
+        return  render(request,'painel.html')
 
 def dologin(request):
     data = {}
@@ -64,3 +73,15 @@ def profile(request):
 
 def contatos(request):    
     return  render(request,'dashboard/contatos.html')
+
+def sacola(request):
+    data = {}
+    sacola_obj, new = Sacola.objects.new_or_get(request)
+    print('Sacola salva: ', sacola_obj.pk is not None)
+    if not sacola_obj.pk:
+       sacola_obj.save()
+    sacola_produtos = sacola_obj.produtos.all()
+    data['pd'] = sacola_produtos
+    data['st'] = sacola_obj.subtotal
+    data['total'] = sacola_obj.total
+    return render(request, 'dashboard/sacola.html', data)
