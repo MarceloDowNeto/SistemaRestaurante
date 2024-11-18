@@ -27,6 +27,28 @@
     </form>
     <a href="/logouts/ ">Fazer logout</a>
 </div>
+<h1>Endereços:</h1>
+{% if enderecos %}
+{% for endereco in enderecos %}
+<div class="content-bar">
+    <div>
+        <h2>{{ endereco.rua }}, {{ endereco.numero }}</h2>
+        <ul>
+            <li>Complemento: {{ endereco.complemento }}</li>
+            <li>Cidade: {{ endereco.cidade }}</li>
+            <li>Estado: {{ endereco.estado }}</li>
+            <li>CEP: {{ endereco.cep }}</li>
+        </ul>
+    </div>
+    <div>
+        <a href="/edit_endereco/{{endereco.id}}"><img src="..\..\static\editar.png" alt="" style="height: 35px; width: 35px;"></a>
+        <a href="/remove_endereco/{{endereco.id}}"><img src="..\..\static\lixeira.png" alt="" style="height: 30px; width: 30px;"></a>
+    </div>
+
+</div>
+{% endfor %}
+{% endif %}
+<a id="botao" href="{% url 'add_endereco' %}" class="btn btn-primary">Adicionar novo endereço</a>
 {% else %}
 Você não tem acesso a essa página! Faça login: <br>
 <a class="btn btn-dark mt-4 mt-4" href="/">Voltar</a>

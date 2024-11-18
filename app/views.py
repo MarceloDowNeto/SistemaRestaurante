@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect, get_object_or_404
 from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.models import User
 from django.contrib.auth import  authenticate,login,logout
-from app.models import Categoria, Produto, Sacola
+from app.models import Categoria, Produto, Sacola, Endereco
 
 def home(request):
     if request.user.is_authenticated:
@@ -68,8 +68,11 @@ def newdashboard(request):
     data['ct'] = Categoria.objects.all()
     return  render(request,'dashboard/dashboard.html', data)
 
-def profile(request):    
-    return  render(request,'dashboard/profile.html')
+def profile(request):
+    data = {}
+    enderecos = Endereco.objects.filter(user=request.user)
+    data['enderecos'] = enderecos  
+    return  render(request,'dashboard/profile.html', data)
 
 def contatos(request):    
     return  render(request,'dashboard/contatos.html')
@@ -120,3 +123,36 @@ def remove_sacola(request):
             except Produto.DoesNotExist:
                 return JsonResponse({"error": "Produto não encontrado!"}, status=404)
     return JsonResponse({"error": "Requisição inválida!"}, status=400)
+
+def add_endereco(request):
+    if request.method == "POST":
+        rua = request.POST.get("rua")
+        numero = request.POST.get("numero")
+        cidade = request.POST.get("cidade")
+        estado = request.POST.get("estado")
+        complemento = request.POST.get("complemento")
+        cep = request.POST.get("cep")
+        Endereco.objects.create(user=request.user, rua=rua, numero=numero, cidade=cidade, estado=estado,complemento=complemento, cep=cep)
+        return redirect('/profile/')  # Redireciona de volta para o perfil
+    return render(request, 'dashboard/endereco_form.html')
+
+def edit_endereco(request, endereco_id):
+    endereco = get_object_or_404(Endereco, id=endereco_id, user=request.user)
+    if request.method == "POST":
+        endereco.rua = request.POST.get("rua")
+        endereco.numero = request.POST.get("numero")
+        endereco.cidade = request.POST.get("cidade")
+        endereco.estado = request.POST.get("estado")
+        endereco.complemento = request.POST.get("complemento")
+        endereco.cep = request.POST.get("cep")
+        endereco.save()
+        return redirect('/profile/')  # Redireciona de volta para o perfil
+    return render(request, 'dashboard/endereco_form.html', {'endereco': endereco})
+
+def remove_endereco(request, endereco_id):
+    endereco = get_object_or_404(Endereco, id=endereco_id, user=request.user)
+    if request.method == "POST":
+        endereco.delete()
+        return redirect('/profile/')  # Redireciona de volta para o perfil
+    return render(request, 'dashboard/confirm_remocao.html', {'endereco': endereco})
+

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Categoria, Produto, Sacola
+from .models import Categoria, Produto, Sacola, Endereco
 
 # Register your models here.
 @admin.register(Categoria)
@@ -16,4 +16,9 @@ class ProdutoAdmin(admin.ModelAdmin):
 @admin.register(Sacola)
 class SacolaAdmin(admin.ModelAdmin):
     list_display = ('id', 'user')
+    list_filter = ('user',)
+
+@admin.register(Endereco)
+class EnderecoAdmin(admin.ModelAdmin):
+    list_display = ('rua', 'user')
     list_filter = ('user',)

@@ -1,0 +1,42 @@
+{% extends 'dashboard/dashboard_main.html' %}
+{% block sidebar %}
+{% if request.user.is_authenticated %}
+            <nav class="sidebar-nav">
+                <a href="/sacola">
+                    <img src="..\..\static\sacola.png" class="sacola">
+                </a>   
+            </nav>
+        {% endif %}
+{% endblock %}
+{% block content %}
+{% if request.user.is_authenticated %}
+<div class="profile">
+    <h2>{% if endereco %}Editar Endereço{% else %}Adicionar Endereço{% endif %}</h2>
+    <form method="POST">
+        {% csrf_token %}
+        <label for="rua"></label>
+        <input type="text" id="rua" name="rua" value="{{ endereco.rua|default:'' }}" placeholder="Rua" required>
+
+        <label for="numero"></label>
+        <input type="text" id="numero" name="numero" value="{{ endereco.numero|default:'' }}" placeholder="Número" required>
+        
+        <label for="cidade"></label>
+        <input type="text" id="cidade" name="cidade" value="{{ endereco.cidade|default:'' }}" placeholder="Cidade" required>
+        
+        <label for="estado"></label>
+        <input type="text" id="estado" name="estado" value="{{ endereco.estado|default:'' }}" placeholder="Estado" required>
+
+        <label for="complemento"></label>
+        <input type="text" id="complemento" name="complemento" value="{{ endereco.complemento|default:'' }}" placeholder="Complemento">
+        
+        <label for="cep"></label>
+        <input type="text" id="cep" name="cep" value="{{ endereco.cep|default:'' }}" placeholder="CEP" required>
+        
+        <button type="submit" id="botao" class="mt-4" style="border: none;">{% if endereco %}Salvar Alterações{% else %}Adicionar Endereço{% endif %}</button>
+    </form>
+    <a href="/profile/">Voltar para o Perfil</a>
+{% else %}
+Você não tem acesso a essa página! Faça login: <br>
+<a class="btn btn-dark mt-4 mt-4" href="/">Voltar</a>
+{% endif %}
+{% endblock %}
