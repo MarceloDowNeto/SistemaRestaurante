@@ -3,7 +3,7 @@ from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.models import User
 from django.contrib.auth import  authenticate,login,logout
 from app.models import Categoria, Produto, Sacola, Endereco, Pedido, ItemPedido
-from pixqrcodegen import Payload
+from app.pixqrcodegen import Payload
 
 def home(request):
     if request.user.is_authenticated:
