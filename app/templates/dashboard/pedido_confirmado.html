@@ -1,0 +1,21 @@
+{% extends 'dashboard/dashboard_main.html' %}
+{% block sidebar %}
+{% if request.user.is_authenticated %}
+            <nav class="sidebar-nav">
+                <a href="/sacola">
+                    <img src="..\..\static\sacola.png" class="sacola">
+                </a>   
+            </nav>
+        {% endif %}
+{% endblock %}
+{% block content %}
+{% if request.user.is_authenticated %}
+<div id="sacola-info" class="profile">
+    <h2>Pedido Confirmado!</h2>
+<p>Seu pedido foi registrado com sucesso. Aguarde a atualização do status.</p>
+<a id="botao" href="/pedidos">Conferir meus pedidos</a>
+{% else %}
+Você não tem acesso a essa página! Faça login: <br>
+<a class="btn btn-dark mt-4 mt-4" href="/">Voltar</a>
+{% endif %}
+{% endblock %}

@@ -22,6 +22,10 @@
     <h3 id="subtotal">Subtotal: R${{st}}</h3>
     <h6>Taxa de entrega: R$5.00</h6>
     <h2 id="total">Valor total: R${{ total }}</h2>
+    <form action="{% url 'concluir_pedido' %}" method="get">
+        {% csrf_token %}
+        <button id="botao" type="submit">Fazer pedido</button>
+    </form>
 {% else %}
 Você não tem acesso a essa página! Faça login: <br>
 <a class="btn btn-dark mt-4 mt-4" href="/">Voltar</a>

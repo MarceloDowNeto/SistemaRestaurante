@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect, get_object_or_404
 from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.models import User
 from django.contrib.auth import  authenticate,login,logout
-from app.models import Categoria, Produto, Sacola, Endereco
+from app.models import Categoria, Produto, Sacola, Endereco, Pedido, ItemPedido
 
 def home(request):
     if request.user.is_authenticated:
@@ -156,3 +156,53 @@ def remove_endereco(request, endereco_id):
         return redirect('/profile/')  # Redireciona de volta para o perfil
     return render(request, 'dashboard/confirm_remocao.html', {'endereco': endereco})
 
+def concluir_pedido(request):
+    sacola_obj, new = Sacola.objects.new_or_get(request)
+
+    if sacola_obj.produtos.count() == 0:
+        return redirect('/sacola/')  # Redireciona se a sacola estiver vazia
+
+    enderecos = Endereco.objects.filter(user=request.user)
+    if not enderecos.exists():  # Verifica se o usuário tem endereços salvos
+        return redirect('add_endereco')
+
+    if request.method == 'POST':
+        endereco_id = request.POST.get('endereco')
+        forma_pagamento = request.POST.get('forma_pagamento')
+        endereco = get_object_or_404(Endereco, id=endereco_id)
+
+        # Cria o pedido
+        pedido = Pedido.objects.create(
+            user=request.user,
+            endereco=endereco,
+            forma_pagamento=forma_pagamento,
+            total=sacola_obj.total
+        )
+
+        # Adiciona os itens ao pedido
+        for produto in sacola_obj.produtos.all():
+            ItemPedido.objects.create(
+                pedido=pedido,
+                produto=produto,
+                quantidade=1,  # Aqui pode ser adaptado se você tiver um campo de quantidade na sacola
+                preco=produto.preco
+            )
+
+        # Limpa a sacola
+        sacola_obj.produtos.clear()
+        return redirect('confirmacao', pedido_id=pedido.id)
+
+    enderecos = Endereco.objects.filter(user=request.user)
+    return render(request, 'dashboard/confirmar_pedido.html', {'sacola': sacola_obj, 'enderecos': enderecos})
+
+def confirmar_pedido(request, pedido_id):
+    pedido = get_object_or_404(Pedido, id=pedido_id)
+
+    if pedido.forma_pagamento == 'pix':
+        return render(request, 'dashboard/pix_qrcode.html', {'pedido': pedido})
+    else:
+        return render(request, 'dashboard/pedido_confirmado.html', {'pedido': pedido})
+    
+def pedidos(request):
+    pedidos = Pedido.objects.filter(user=request.user).order_by('-criado_em')  # Mais recentes primeiro
+    return render(request, 'dashboard/pedidos.html', {'pedidos': pedidos})

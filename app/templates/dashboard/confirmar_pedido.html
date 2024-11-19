@@ -1,0 +1,38 @@
+{% extends 'dashboard/dashboard_main.html' %}
+{% block sidebar %}
+{% if request.user.is_authenticated %}
+            <nav class="sidebar-nav">
+                <a href="/sacola">
+                    <img src="..\..\static\sacola.png" class="sacola">
+                </a>   
+            </nav>
+        {% endif %}
+{% endblock %}
+{% block content %}
+{% if request.user.is_authenticated %}
+<div id="sacola-info" class="profile">
+    <h2>Confirme seu pedido</h2>
+    <form method="post">
+        {% csrf_token %}
+        <label for="endereco">Escolha um endereço:</label>
+        <select name="endereco" id="endereco" required>
+            {% for endereco in enderecos %}
+            <option value="{{ endereco.id }}">{{ endereco }}</option>
+            {% endfor %}
+        </select>
+
+        <label for="forma_pagamento">Forma de Pagamento:</label>
+        <select name="forma_pagamento" id="forma_pagamento" required>
+            <option value="pix">Pix</option>
+            <option value="credito">Cartão de Crédito</option>
+            <option value="debito">Cartão de Débito</option>
+            <option value="dinheiro">Dinheiro</option>
+        </select>
+
+        <button id="botao" style="border: none;" type="submit">Confirmar Pedido</button>
+    </form>
+{% else %}
+Você não tem acesso a essa página! Faça login: <br>
+<a class="btn btn-dark mt-4 mt-4" href="/">Voltar</a>
+{% endif %}
+{% endblock %}

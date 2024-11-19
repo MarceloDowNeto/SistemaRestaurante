@@ -69,7 +69,38 @@ class Endereco(models.Model):
     def __str__(self):
         return f"{self.rua}, {self.numero}, {self.complemento} / {self.cidade} - {self.estado}"
     
-    
+class Pedido(models.Model):
+    STATUS_CHOICES = [
+        ('pendente', 'Pendente'),
+        ('aprovado', 'Aprovado'),
+        ('enviado', 'Enviado'),
+        ('concluido', 'Concluído'),
+        ('cancelado', 'Cancelado'),
+    ]
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    endereco = models.ForeignKey(Endereco, on_delete=models.SET_NULL, null=True)
+    forma_pagamento = models.CharField(max_length=20, choices=[
+        ('pix', 'Pix'),
+        ('credito', 'Cartão de Crédito'),
+        ('debito', 'Cartão de Débito'),
+        ('dinheiro', 'Dinheiro'),
+    ])
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pendente')
+    total = models.DecimalField(max_digits=10, decimal_places=2)
+    criado_em = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Pedido {self.id} - {self.user.username}"
+
+class ItemPedido(models.Model):
+    pedido = models.ForeignKey(Pedido, on_delete=models.CASCADE, related_name='itens')
+    produto = models.ForeignKey(Produto, on_delete=models.CASCADE)
+    quantidade = models.PositiveIntegerField(default=1)
+    preco = models.DecimalField(max_digits=10, decimal_places=2)
+
+    def __str__(self):
+        return f"{self.quantidade}x {self.produto.nome}"    
     
 def m2m_changed_sacola_receiver(sender, instance, action, *args, **kwargs):
   #print(action)
