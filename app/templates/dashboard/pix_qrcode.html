@@ -12,7 +12,8 @@
 {% if request.user.is_authenticated %}
 <div id="sacola-info" class="profile">
     <h2>Escaneie o QR Code para concluir o pagamento:</h2>
-    <img src="/static/qrcode.png" alt="QR Code Pix">
+    <img src="..\..\static\pixqrcodegen.png" style="height: 270; width: 270;" alt="QR Code Pix">
+    <p class="copy-text" onclick="copiarTexto(this)">{{codigo}}</p>
     <p>Após realizar o pagamento, aguarde a confirmação.</p>
     <a id="botao" href="/pedidos">Conferir meus pedidos</a>
 {% else %}

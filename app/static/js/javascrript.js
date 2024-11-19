@@ -43,6 +43,19 @@ $(document).ready(function() {
                 console.error("Erro ao remover produto:", error);
             }
         });
-    });
+    });    
 });
 
+function copiarTexto(elemento) {
+    // Obtém o texto do elemento
+    const texto = elemento.innerText;
+
+    // Usa a API Clipboard para copiar o texto
+    navigator.clipboard.writeText(texto)
+        .then(() => {
+            alert('Texto copiado para a área de transferência!');
+        })
+        .catch(err => {
+            console.error('Erro ao copiar o texto: ', err);
+        });
+    }

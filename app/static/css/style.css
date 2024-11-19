@@ -160,3 +160,9 @@ html {
 .profile{
     width: 80vw;
 }
+
+.copy-text {
+    cursor: pointer;
+    color: blue;
+    text-decoration: underline;
+}

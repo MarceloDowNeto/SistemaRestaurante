@@ -3,6 +3,7 @@ from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.models import User
 from django.contrib.auth import  authenticate,login,logout
 from app.models import Categoria, Produto, Sacola, Endereco, Pedido, ItemPedido
+from pixqrcodegen import Payload
 
 def home(request):
     if request.user.is_authenticated:
@@ -199,7 +200,11 @@ def confirmar_pedido(request, pedido_id):
     pedido = get_object_or_404(Pedido, id=pedido_id)
 
     if pedido.forma_pagamento == 'pix':
-        return render(request, 'dashboard/pix_qrcode.html', {'pedido': pedido})
+        payload = Payload('CARLOS MARCELO', 'mndowsley@gmail.com', f'{pedido.total}','Maceio','Eclipse Burger')
+        payload.gerarPayload()
+        codigo = payload.payload_completa
+        payload.gerarQrCode(codigo, 'app\static')
+        return render(request, 'dashboard/pix_qrcode.html', {'pedido': pedido, 'codigo':codigo})
     else:
         return render(request, 'dashboard/pedido_confirmado.html', {'pedido': pedido})
     

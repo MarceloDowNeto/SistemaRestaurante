@@ -11,3 +11,5 @@ Pillow==10.1.0
 sqlparse==0.5.1
 tzdata==2024.1
 Werkzeug==3.0.2
+pixqrcodegen @ file:///C:/Users/xande/Downloads/pixqrcodegen-0.9.1.tar.gz#sha256=21db7f875a5d44bc3c249f8377edabbda7f3d593f8953687d0c28b3fbea4115e
+qrcode==8.0
