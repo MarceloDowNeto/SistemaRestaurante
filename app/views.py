@@ -185,7 +185,7 @@ def concluir_pedido(request):
             ItemPedido.objects.create(
                 pedido=pedido,
                 produto=produto,
-                quantidade=1,  # Aqui pode ser adaptado se você tiver um campo de quantidade na sacola
+                quantidade=1,
                 preco=produto.preco
             )
 
